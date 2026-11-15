@@ -1,89 +1,691 @@
-<!DOCTYPE html>
+
+/* hero */
+.hero{padding:8px 0 56px}
+.hero-grid{display:grid;gap:20px}
+.face{padding:28px 22px 30px}
+.hero .display{font-family:var(--serif);font-weight:600;color:var(--ink);line-height:1.15;text-wrap:balance;margin-top:14px;font-size:clamp(2.125rem,6.4vw,3.125rem);letter-spacing:-.015em;max-width:17ch}
+.lead{margin-top:18px;font-size:1.1875rem;color:var(--text);max-width:52ch}
+.actions{margin-top:28px;display:grid;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:14px 22px;border-radius:6px;font:700 1.0625rem/1.25 var(--sans);text-decoration:none;text-align:center;border:2px solid var(--blue);transition:background-color .18s var(--ease),color .18s var(--ease),transform .15s var(--ease),box-shadow .18s var(--ease)}
+.btn svg{width:22px;height:22px;flex:none}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:var(--blue-deep);border-color:var(--blue-deep);box-shadow:0 6px 16px -8px rgba(31,58,158,.7);text-decoration:none}
+.btn-alt{background:var(--card);color:var(--blue)}
+.btn-alt:hover{background:var(--blue-wash);text-decoration:none}
+.btn:active{transform:translateY(1px) scale(.985)}
+.reply{margin-top:16px;color:var(--muted);font-size:1rem}
+
+/* caixa de entrada */
+.inbox{padding:0;overflow:hidden;align-self:start}
+.inbox-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--rule-soft)}
+.inbox-head h2{font-size:1.25rem}
+.tag{font-size:.875rem;color:var(--muted)}
+.msgs{list-style:none;margin:0;padding:0}
+.msg{position:relative;display:grid;grid-template-columns:40px 1fr;gap:4px 12px;padding:16px 18px;border-bottom:1px solid var(--rule-soft);transition:opacity .5s var(--ease),transform .5s var(--ease),background-color .4s var(--ease)}
+.msg:last-child{border-bottom:0}
+.av{grid-row:span 3;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9375rem;background:var(--rule-soft);color:var(--ink)}
+.msg .line1{display:flex;justify-content:space-between;gap:8px;color:var(--ink);font-weight:700;font-size:1rem;line-height:1.35}
+.msg time{font-weight:400;color:var(--muted);font-size:.9375rem;white-space:nowrap}
+.from{font-size:.9375rem;color:var(--muted);line-height:1.35;overflow-wrap:anywhere}
+.subj{font-size:1rem;color:var(--text);line-height:1.4}
+.msg.old .av{background:#e6e8ec}
+.msg.old .line1{font-weight:400}
+.verdict{grid-column:2;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.stamp{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 7px;border:2px solid currentColor;border-radius:4px;font:700 .9375rem/1.2 var(--sans);letter-spacing:.02em;transform:rotate(-3deg);transform-origin:left center}
+.stamp svg{width:16px;height:16px}
+.ok .stamp{color:var(--blue);background:var(--blue-wash)}
+.ok .av{background:var(--blue);color:#fff}
+.bad .stamp{color:var(--ink);background:#fff}
+.note{font-size:.9375rem;color:var(--muted);line-height:1.35}
+.bad.barred{background:#f3f4f3}
+.bad.barred .subj{text-decoration:line-through;text-decoration-color:var(--ink);color:var(--muted)}
+.bad.barred .av{background:#d9dcd9}
+.replay{display:block;width:100%;padding:12px 18px;border:0;border-top:1px solid var(--rule-soft);background:var(--card);color:var(--blue);font:700 .9375rem/1.3 var(--sans);text-align:left;cursor:pointer;transition:background-color .18s var(--ease)}
+.replay:hover{background:var(--blue-wash)}
+.replay[hidden]{display:none}
+
+/* animação da caixa: só com JS e movimento permitido */
+.anim .msg.wait{opacity:0;transform:translateY(-10px)}
+.anim .verdict.wait{opacity:0}
+.anim .verdict.wait .stamp{transform:rotate(-3deg) scale(1.35)}
+.verdict{transition:opacity .25s var(--ease)}
+.verdict .stamp{transition:transform .32s cubic-bezier(.2,1.4,.4,1)}
+
+/* seções */
+section{padding:64px 0}
+.sec-head{max-width:40rem;margin-bottom:32px}
+.sec-head h2{font-size:clamp(1.75rem,5vw,2.5rem);letter-spacing:-.01em}
+.sec-head p{margin-top:12px;color:var(--muted)}
+.band{background:var(--card);border-top:1px soli<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yan Reis | Site e e-mail profissional para empresas de Curitiba</title>
-<meta name="description" content="Site e e-mail profissional para pequenas empresas de Curitiba. E-mail que chega na caixa de entrada e protege o nome da empresa, site que abre com cadeado e facilita o pedido de orçamento.">
+<title>Criação de sites para empresas em Curitiba | Yan Reis</title>
+<meta name="description" content="Criação de site para empresas em Curitiba: site que traz pedidos de orçamento, e-mail profissional e presença no Google. Resumo inicial sem custo.">
 <link rel="canonical" href="https://yanreis.dev.br/">
+<meta name="theme-color" content="#1f3a9e">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://yanreis.dev.br/">
+<meta property="og:site_name" content="Yan Reis">
+<meta property="og:title" content="Criação de sites para empresas em Curitiba | Yan Reis">
+<meta property="og:description" content="Criação de site para empresas em Curitiba: site que traz pedidos de orçamento, e-mail profissional e presença no Google. Resumo inicial sem custo.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f3a9e'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-weight='700' fill='%23fff'%3EYR%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-serif-4-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  :root{--tx:#1c2430;--mut:#5a6472;--bg:#fbfaf7;--card:#ffffff;--ln:#e4e1da;--ac:#1f5f4a;--acl:#e8f1ed}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--tx);background:var(--bg);line-height:1.6;font-size:17px}
-  .w{max-width:880px;margin:0 auto;padding:0 22px}
-  header{padding:28px 0 0}
-  .nome{font-weight:700;letter-spacing:.2px}
-  .hero{padding:56px 0 40px}
-  h1{font-size:clamp(28px,4.6vw,42px);line-height:1.15;margin:0 0 16px;max-width:20ch}
-  .lead{font-size:19px;color:var(--mut);max-width:58ch;margin:0 0 28px}
-  .btn{display:inline-block;background:var(--ac);color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:600}
-  .btn:hover{background:#174a3a}
-  section{padding:36px 0;border-top:1px solid var(--ln)}
-  h2{font-size:24px;margin:0 0 20px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .card{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:20px}
-  .card h3{margin:0 0 8px;font-size:18px}
-  .card p{margin:0;color:var(--mut)}
-  ol.passos{counter-reset:p;list-style:none;padding:0;margin:0;display:grid;gap:14px}
-  ol.passos li{counter-increment:p;position:relative;padding-left:46px}
-  ol.passos li::before{content:counter(p);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--acl);color:var(--ac);font-weight:700;display:flex;align-items:center;justify-content:center}
-  .sobre p{max-width:62ch;margin:0 0 12px}
-  .contato p{margin:0 0 8px}
-  .contato a{color:var(--ac);font-weight:600}
-  footer{padding:28px 0 40px;color:var(--mut);font-size:14px;border-top:1px solid var(--ln)}
+@font-face{font-family:"Source Sans 3";src:url(fonts/source-sans-3-latin-400-normal.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(fonts/source-sans-3-latin-700-normal.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(fonts/source-serif-4-latin-600-normal.woff2) format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+:root{
+  --ground:#eef0ee;
+  --card:#ffffff;
+  --ink:#14171c;
+  --text:#2b3038;
+  --muted:#4d5562;
+  --rule:#c9cec9;
+  --rule-soft:#e1e4e1;
+  --blue:#1f3a9e;
+  --blue-deep:#172c7a;
+  --blue-wash:#e9edf8;
+  --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --gut:20px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:1.125rem;line-height:1.6;text-rendering:optimizeLegibility}
+::selection{background:var(--blue);color:#fff}
+img,svg{display:block}
+a{color:var(--blue);text-underline-offset:.18em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.seo-h1{font-family:var(--sans);font-weight:700;font-size:1.0625rem;line-height:1.35;color:var(--blue);letter-spacing:0;max-width:none}
+h1,h2,h3{font-family:var(--serif);font-weight:600;color:var(--ink);line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--gut)}
+.nw{white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);padding:10px 14px;z-index:10}
+.skip:focus{left:8px}
+
+/* monograma */
+.mono{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:6px;background:var(--blue);color:#fff;font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.01em;flex:none}
+
+/* topo */
+.top{padding:18px 0}
+.top .wrap{display:flex;align-items:center;gap:14px}
+.who{display:flex;flex-direction:column;line-height:1.25}
+.who b{color:var(--ink);font-size:1.0625rem}
+.who span{color:var(--muted);font-size:.9375rem}
+.top-link{margin-left:auto;font-weight:700;font-size:1rem;color:var(--ink);text-decoration:none;padding:10px 4px}
+.top-link:hover{color:var(--blue)}
+
+/* cartão com marcas de corte */
+.cut{--o:14px;padding:var(--o);background:
+  linear-gradient(var(--rule),var(--rule)) left 0 top var(--o)/9px 1px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) left var(--o) top 0/1px 9px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) right 0 top var(--o)/9px 1px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) right var(--o) top 0/1px 9px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) left 0 bottom var(--o)/9px 1px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) left var(--o) bottom 0/1px 9px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) right 0 bottom var(--o)/9px 1px no-repeat,
+  linear-gradient(var(--rule),var(--rule)) right var(--o) bottom 0/1px 9px no-repeat}
+.card{background:var(--card);border-radius:4px;box-shadow:0 1px 1px rgba(20,23,28,.08),0 3px 8px -2px rgba(20,23,28,.10)}
+d var(--rule-soft);border-bottom:1px solid var(--rule-soft)}
+
+/* o que eu resolvo: lista com fios */
+.fixes{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.fixes li{display:grid;gap:8px;padding:24px 0;border-bottom:1px solid var(--rule)}
+.fixes h3{font-size:1.4375rem}
+.fixes p{max-width:60ch}
+
+/* passos */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:0 0 32px 64px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:44px;height:44px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);background:var(--card);display:grid;place-items:center;font:600 1.25rem/1 var(--serif)}
+.steps li::after{content:"";position:absolute;left:21px;top:48px;bottom:6px;width:2px;background:var(--rule)}
+.steps li:last-child{padding-bottom:0}
+.steps li:last-child::after{display:none}
+.steps h3{font-size:1.3125rem;margin-bottom:6px}
+
+/* preços */
+.prices{display:grid;gap:20px}
+.price{padding:26px 22px 24px;display:flex;flex-direction:column}
+.price h3{font-size:1.375rem}
+.amount{margin-top:14px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.amount b{font:600 clamp(2.5rem,9vw,3.25rem)/1 var(--serif);color:var(--ink);letter-spacing:-.02em;font-variant-numeric:lining-nums}
+.amount span{color:var(--muted);font-size:1rem}
+.prazo{margin-top:6px;font-weight:700;color:var(--blue)}
+.incl{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--rule)}
+.incl li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule-soft);font-size:1.0625rem;line-height:1.4}
+.incl svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--blue)}
+.price-note{margin-top:20px;color:var(--muted);font-size:1rem;max-width:60ch}
+.free{margin-top:28px;padding:18px 20px;border:1px dashed var(--blue);border-radius:4px;background:var(--blue-wash);color:var(--ink);display:flex;flex-direction:column;gap:12px}
+.free a{font-weight:700}
+
+/* trabalho e quem sou */
+.duo{display:grid;gap:20px}
+.panel{padding:26px 22px}
+.panel h2{font-size:clamp(1.5rem,4.4vw,1.875rem);margin-bottom:14px}
+.done-list{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.done-list li{display:flex;gap:10px;line-height:1.4}
+.done-list svg{width:18px;height:18px;flex:none;margin-top:4px;color:var(--blue)}
+.small{margin-top:16px;color:var(--muted);font-size:1rem}
+.me{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.me .mono{width:72px;height:72px;font-size:1.75rem;border-radius:8px}
+.me p+p{margin-top:12px}
+
+/* perguntas */
+.faq{border-top:2px solid var(--ink);max-width:48rem;padding-top:4px}
+.q{border-bottom:1px solid var(--rule)}
+.q h3{font-family:var(--sans);font-weight:700;font-size:1.1875rem;text-wrap:pretty}
+.q button{all:unset;box-sizing:border-box;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:20px 2px;cursor:pointer;color:var(--ink);line-height:1.35;border-radius:4px}
+.q button:hover{color:var(--blue)}
+.q button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.q .ic{width:28px;height:28px;flex:none;border-radius:50%;border:2px solid currentColor;position:relative;transition:transform .2s var(--ease)}
+.q .ic::before,.q .ic::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:currentColor;transition:transform .2s var(--ease)}
+.q .ic::after{transform:rotate(90deg)}
+.q button[aria-expanded="true"] .ic::after{transform:rotate(0)}
+.a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s var(--ease)}
+.a>div{overflow:hidden}
+.a p{padding:0 2px 22px;max-width:62ch}
+.q.open .a{grid-template-rows:1fr}
+p{text-wrap:pretty}
+.inbox-cap{padding:12px 18px;border-bottom:1px solid var(--rule-soft);font-size:1rem;line-height:1.45;color:var(--text);background:var(--blue-wash)}
+.pay{margin-top:auto;padding-top:16px;color:var(--muted);font-size:1rem}
+.more{margin-top:20px;padding:22px;background:var(--card);border-top:2px solid var(--ink);display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.more h3{font-size:1.375rem;margin-bottom:6px}
+.more p{max-width:56ch}
+.contact-wrap{max-width:820px}
+
+/* contato */
+.contact{padding:30px 22px 28px}
+.contact .head{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.contact .head .mono{width:60px;height:60px;font-size:1.5rem}
+.contact h2{font-size:clamp(1.75rem,5vw,2.25rem)}
+.contact .head p{color:var(--muted)}
+.lines{display:grid;gap:0;border-top:1px solid var(--rule);margin-bottom:24px}
+.lines div{display:grid;gap:2px;padding:14px 0;border-bottom:1px solid var(--rule-soft)}
+.lines dt{font-size:.9375rem;color:var(--muted)}
+.lines dd{margin:0;font-size:1.25rem;font-weight:700;color:var(--ink);overflow-wrap:anywhere}
+.lines dd a{color:var(--ink)}
+.lines dd a:hover{color:var(--blue)}
+
+footer{padding:28px 0 40px;color:var(--muted);font-size:1rem}
+
+/* entrada das seções ao rolar */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.js .rv.on{opacity:1;transform:none}
+
+@media (min-width:640px){
+  :root{--gut:32px}
+  .actions{display:flex;flex-wrap:wrap}
+  .actions .btn{white-space:nowrap}
+  .face{padding:40px 40px 42px}
+  .prices{grid-template-columns:1fr 1fr}
+  .price,.panel{padding:32px 32px 30px}
+  .contact{padding:40px 40px 36px}
+  .lines{grid-template-columns:1fr 1fr;column-gap:32px}
+  .free,.more{flex-direction:row;align-items:center;justify-content:space-between}
+  .more{padding:26px 32px}
+}
+@media (min-width:960px){
+  .hero{padding:16px 0 80px}
+  .hero-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:center}
+  .face{padding:56px 52px 54px}
+  section{padding:88px 0}
+  .fixes li{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:40px;padding:30px 0}
+  .steps{grid-template-columns:repeat(3,1fr);gap:32px}
+  .steps li{padding:64px 0 0}
+  .steps li::after{left:56px;right:-24px;top:21px;bottom:auto;width:auto;height:2px}
+  .steps li:last-child::after{display:none}
+  .duo{grid-template-columns:1fr 1fr}
+  .me{flex-direction:row;gap:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .js .rv{opacity:1;transform:none}
+}
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://yanreis.dev.br/#servico",
+   "name": "Yan Reis",
+   "url": "https://yanreis.dev.br/",
+   "email": "yan@yanreis.dev.br",
+   "telephone": "+55 41 99165-4004",
+   "description": "Criação de site para empresas em Curitiba: site que traz pedidos de orçamento, e-mail profissional e presença no Google. Resumo inicial sem custo.",
+   "founder": {
+    "@type": "Person",
+    "name": "Yan Gonçalves Reis"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Curitiba"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Região Metropolitana de Curitiba"
+    }
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Criação de site para empresa",
+       "description": "Site que funciona no celular, abre com cadeado e mostra como pedir orçamento ou chamar no WhatsApp."
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Captação e organização de contatos",
+       "description": "Formulário e WhatsApp no site, com os pedidos de orçamento organizados em um lugar só."
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "E-mail profissional e domínio",
+       "description": "E-mail com o nome da empresa, com mais chance de chegar na caixa de entrada e protegido contra e-mail falso."
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Presença no Google",
+       "description": "Informações da empresa corretas e em dia para quem procura no Google."
+      }
+     },
+     {
+      "@type": "Offer",
+      "price": "250",
+      "priceCurrency": "BRL",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Ajuste de e-mail e domínio"
+      }
+     },
+     {
+      "@type": "Offer",
+      "price": "900",
+      "priceCurrency": "BRL",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Criação de site de uma página"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Preciso trocar quem faz o meu site?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Não. Posso só ajustar o e-mail e o domínio e deixar o site como está, ou trabalhar junto com quem já cuida dele."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Você vai ter acesso aos meus e-mails?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Não preciso ler nenhuma mensagem. O ajuste é feito nas configurações do endereço da empresa, e não dentro das caixas de e-mail. Quando eu terminar, você pode retirar qualquer acesso que tiver me passado."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Quanto tempo leva?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "O resumo inicial sai em até 2 dias úteis, sem custo. O ajuste de e-mail e domínio fica pronto em até 5 dias úteis, e o site novo, em até 15 dias úteis, contados a partir da aprovação. Projetos maiores têm o prazo combinado no orçamento."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "E se algo parar de funcionar depois?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Você tem 30 dias de garantia: se algo do que eu fiz parar de funcionar, corrijo sem custo. É só me chamar por e-mail ou WhatsApp."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Como é o pagamento?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Por Pix. No ajuste de e-mail e domínio, o pagamento é na entrega. No site, metade para começar e metade na entrega. O preço é sempre fechado antes de começar."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
-<header><div class="w"><span class="nome">Yan Reis</span></div></header>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-<main>
-<div class="w hero">
-  <h1>Site e e-mail que passam confiança para os seus clientes</h1>
-  <p class="lead">Ajudo pequenas empresas de Curitiba a ter um e-mail que chega na caixa de entrada e protege o nome da empresa, e um site que abre com cadeado e facilita o pedido de orçamento.</p>
-  <a class="btn" href="mailto:yan@yanreis.dev.br?subject=Quero%20o%20resumo%20do%20meu%20site%20e%20e-mail">Pedir um resumo do meu site e e-mail</a>
-</div>
+<header class="top">
+  <div class="wrap">
+    <span class="mono" aria-hidden="true">YR</span>
+    <div class="who"><b>Yan Reis</b><span>Presença na internet · <span class="nw">Curitiba, PR</span></span></div>
+    <a class="top-link" href="#contato">Contato</a>
+  </div>
+</header>
 
-<section><div class="w">
-  <h2>O que eu faço</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>E-mail com o nome da empresa</h3>
-      <p>Configuro o e-mail para chegar na caixa de entrada, e não no spam, e para dificultar que alguém mande cobrança ou boleto falso usando o nome da sua empresa.</p>
+<main id="conteudo">
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div class="cut">
+      <div class="card face">
+        <h1 class="seo-h1">Criação de sites e presença digital para empresas em Curitiba</h1>
+        <p class="display">Para o cliente encontrar a sua empresa, confiar e pedir orçamento</p>
+        <p class="lead">Cuido de como a sua empresa aparece na internet: site, pedidos de orçamento pelo formulário e pelo WhatsApp, <span class="nw">e-mail</span> profissional com o nome da empresa e presença no Google. Para pequenas empresas de Curitiba que vendem para outras empresas.</p>
+        <div class="actions">
+          <a class="btn btn-main" href="mailto:yan@yanreis.dev.br?subject=Quero%20o%20resumo%20do%20meu%20site%20e%20e-mail&amp;body=Ol%C3%A1%2C%20Yan.%0A%0AEmpresa%3A%20%0ASite%3A%20%0AE-mail%20da%20empresa%3A%20%0A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Pedir um resumo do meu site e <span class="nw">e-mail</span></span></a>
+          <a class="btn btn-alt" href="https://wa.me/5541991654004?text=Ol%C3%A1%2C%20Yan.%20Vi%20seu%20site%20e%20quero%20o%20resumo%20do%20meu%20site%20e%20e-mail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.6a8.1 8.1 0 0 1-12 7.1L4 20l1.4-3.8A8.1 8.1 0 1 1 20 11.6Z"/><path d="M9.2 8.6c.3-.6.7-.6 1-.6h.4c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .5-.1.6l-.5.6c.6 1.1 1.5 2 2.7 2.6l.6-.6c.2-.2.4-.2.6-.1l1.5.7c.2.1.3.3.3.5v.4c0 .4-.2.8-.6 1-.6.3-1.5.4-2.6-.1a8 8 0 0 1-4.4-4.4c-.3-.9-.3-1.7 0-2.5Z"/></svg><span>Conversar no WhatsApp</span></a>
+        </div>
+        <p class="reply">Respondo em até um dia útil. O resumo sai em até 2 dias úteis, sem custo.</p>
+      </div>
     </div>
-    <div class="card">
-      <h3>Site que traz pedidos</h3>
-      <p>Site que abre com cadeado por qualquer endereço, funciona bem no celular e mostra logo como pedir orçamento ou chamar no WhatsApp.</p>
-    </div>
-    <div class="card">
-      <h3>Domínio em ordem</h3>
-      <p>Organizo o endereço da empresa na internet, inclusive endereços antigos que ainda recebem e-mail, para nada ficar esquecido e sem proteção.</p>
+
+    <div class="cut">
+      <div class="card inbox" id="inbox">
+        <div class="inbox-head">
+          <h2>Caixa de entrada do seu cliente</h2>
+          <span class="tag">Exemplo</span>
+        </div>
+        <p class="inbox-cap">Um dos problemas que eu resolvo: alguém mandando <span class="nw">e-mail</span> falso com o nome da sua empresa.</p>
+        <ul class="msgs" aria-live="polite">
+          <li class="msg ok" data-step="1">
+            <span class="av" aria-hidden="true">SE</span>
+            <div class="line1"><span>Sua Empresa</span><time>09:12</time></div>
+            <div class="from">financeiro@suaempresa.com.br</div>
+            <div class="subj">Nota fiscal e boleto de novembro</div>
+            <div class="verdict">
+              <span class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>VERIFICADO</span></span>
+              <span class="note">Saiu mesmo da sua empresa.</span>
+            </div>
+          </li>
+          <li class="msg bad" data-step="2">
+            <span class="av" aria-hidden="true">SE</span>
+            <div class="line1"><span>Sua Empresa</span><time>09:47</time></div>
+            <div class="from">financeiro@suaempresa.com.br</div>
+            <div class="subj">URGENTE: boleto atualizado, pague hoje</div>
+            <div class="verdict">
+              <span class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>BARRADO</span></span>
+              <span class="note">Barrado antes de chegar: usou o seu nome, mas não saiu da sua empresa.</span>
+            </div>
+          </li>
+          <li class="msg old">
+            <span class="av" aria-hidden="true">AF</span>
+            <div class="line1"><span>Aços Fornecedor</span><time>08:40</time></div>
+            <div class="from">vendas@acosfornecedor.com.br</div>
+            <div class="subj">Cotação de barras redondas</div>
+          </li>
+        </ul>
+        <button class="replay" type="button" hidden>Ver o exemplo de novo</button>
+      </div>
     </div>
   </div>
-</div></section>
+</div>
 
-<section><div class="w">
-  <h2>Como funciona</h2>
-  <ol class="passos">
-    <li><strong>Olho o seu site e o seu e-mail, sem custo.</strong> Você recebe um resumo de uma página, sem termos técnicos, com o que encontrei.</li>
-    <li><strong>Você decide o que quer corrigir.</strong> O preço é fechado antes de começar.</li>
-    <li><strong>Eu faço e mostro o antes e o depois.</strong> Sem mudar o que já funciona.</li>
-  </ol>
-</div></section>
+<section class="band" aria-labelledby="t-resolvo">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 id="t-resolvo">O que eu faço pela sua empresa</h2>
+      <p>Criação de site, organização dos contatos, <span class="nw">e-mail</span> profissional e presença no Google: as quatro coisas que fazem um cliente encontrar a sua empresa, confiar nela e pedir orçamento.</p>
+    </div>
+    <ul class="fixes rv">
+      <li>
+        <h3>Site para empresa que traz pedidos</h3>
+        <p>Abre com o cadeado de site seguro, por qualquer endereço que o cliente digitar. Funciona bem no celular e mostra logo como pedir orçamento ou chamar no WhatsApp.</p>
+      </li>
+      <li>
+        <h3>Captação e organização de contatos</h3>
+        <p>Formulário e WhatsApp no site, e os pedidos chegando a um lugar só, organizados, para nenhum orçamento ficar sem resposta.</p>
+      </li>
+      <li>
+        <h3><span class="nw">E-mail</span> profissional e domínio protegidos</h3>
+        <p>O seu <span class="nw">e-mail</span> passa a ter muito mais chance de chegar na caixa de entrada, e fica bem mais difícil alguém mandar cobrança falsa usando o nome da sua empresa. Endereços antigos que ainda recebem <span class="nw">e-mail</span> também ficam em ordem.</p>
+      </li>
+      <li>
+        <h3>Aparecer no Google</h3>
+        <p>Quem procura a sua empresa no Google, em Curitiba ou em qualquer lugar, encontra o nome certo, o telefone, o horário e o site, com as informações em dia.</p>
+      </li>
+    </ul>
+  </div>
+</section>
 
-<section class="sobre"><div class="w">
-  <h2>Quem sou</h2>
-  <p>Sou o Yan, analista de sistemas e estudante de engenharia da computação, em Curitiba. No dia a dia trabalho com sistemas web, integração entre sistemas e segurança.</p>
-  <p>Já entreguei o site completo de uma empresa de cibersegurança de Curitiba: páginas em português e inglês, captação de contatos, domínio, e-mail e aparição no Google.</p>
-</div></section>
+<section aria-labelledby="t-como">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 id="t-como">Como funciona</h2>
+    </div>
+    <ol class="steps rv">
+      <li>
+        <h3>Eu olho, sem custo</h3>
+        <p>Vejo o seu site e o seu <span class="nw">e-mail</span> e mando, em até 2 dias úteis, um resumo de uma página, sem termos técnicos, com o que encontrei.</p>
+      </li>
+      <li>
+        <h3>Você decide</h3>
+        <p>Você escolhe o que quer fazer. O preço é fechado antes de eu começar.</p>
+      </li>
+      <li>
+        <h3>Eu faço e mostro</h3>
+        <p>Faço o combinado e mostro o antes e o depois, sem mexer no que já funciona.</p>
+      </li>
+    </ol>
+  </div>
+</section>
 
-<section class="contato"><div class="w">
-  <h2>Contato</h2>
-  <p>E-mail: <a href="mailto:yan@yanreis.dev.br">yan@yanreis.dev.br</a></p>
-  <p>WhatsApp: <a href="https://wa.me/5541991654004">(41) 99165-4004</a></p>
-  <p>Respondo em até um dia útil.</p>
-</div></section>
+<section class="band" aria-labelledby="t-precos">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 id="t-precos">Formas de começar</h2>
+      <p>Preços de lançamento para os três primeiros clientes. Preço fechado, combinado antes de começar, com pagamento por Pix.</p>
+    </div>
+    <div class="prices rv">
+      <div class="cut">
+        <article class="card price">
+          <h3>Ajuste de <span class="nw">e-mail</span> e domínio</h3>
+          <div class="amount"><b>R$ 250</b></div>
+          <p class="prazo">Pronto em até 5 dias úteis</p>
+          <ul class="incl">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><span class="nw">E-mail</span> com mais chance de chegar na caixa de entrada</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Proteção contra <span class="nw">e-mail</span> falso em nome da empresa</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Endereços antigos revisados e protegidos</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Antes e depois explicados em palavras simples</span></li>
+          </ul>
+          <p class="pay">Pagamento na entrega.</p>
+        </article>
+      </div>
+      <div class="cut">
+        <article class="card price">
+          <h3>Criação de site de uma página</h3>
+          <div class="amount"><b>R$ 900</b></div>
+          <p class="prazo">Pronto em até 15 dias úteis</p>
+          <ul class="incl">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Textos escritos para o seu cliente entender</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Formulário de pedido de orçamento</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Botão de WhatsApp</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Domínio configurado e site abrindo com cadeado</span></li>
+          </ul>
+          <p class="pay">Metade para começar e metade na entrega.</p>
+        </article>
+      </div>
+    </div>
+    <div class="more rv">
+      <div>
+        <h3>Projetos maiores</h3>
+        <p>Site completo para empresa, captação de contatos e presença no Google, com orçamento sob medida.</p>
+      </div>
+      <a class="btn btn-alt" href="#contato"><span>Pedir um orçamento</span></a>
+    </div>
+    <div class="free rv">
+      <p><strong>Antes de tudo, o resumo.</strong> Você recebe sem custo e sem compromisso, e só decide depois.</p>
+      <a href="#contato">Como pedir o resumo</a>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Trabalho entregue e quem sou">
+  <div class="wrap duo">
+    <div class="cut rv">
+      <article class="card panel">
+        <h2>Trabalho entregue</h2>
+        <p>Um projeto completo, do site à presença no Google, para uma empresa de cibersegurança de Curitiba.</p>
+        <ul class="done-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Site em português e em inglês</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Captação de contatos pelo site</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Domínio e <span class="nw">e-mail</span> configurados</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Presença no Google</span></li>
+        </ul>
+        <p class="small">O nome do cliente fica de fora por discrição.</p>
+      </article>
+    </div>
+    <div class="cut rv">
+      <article class="card panel">
+        <h2>Quem sou</h2>
+        <div class="me">
+          <span class="mono" aria-hidden="true">YR</span>
+          <div>
+            <p>Sou Yan Reis, analista de sistemas e estudante de engenharia da computação, em Curitiba.</p>
+            <p>No dia a dia, trabalho com sistemas web, integração entre sistemas e segurança. Uso essa experiência para cuidar da presença digital de pequenas empresas em Curitiba e região.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="t-faq">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 id="t-faq">Perguntas frequentes</h2>
+    </div>
+    <div class="faq rv">
+      <div class="q">
+        <h3><button type="button" aria-expanded="false" aria-controls="r1" id="p1"><span class="qt">Preciso trocar quem faz o meu site?</span><span class="ic" aria-hidden="true"></span></button></h3>
+        <div class="a" id="r1" role="region" aria-labelledby="p1"><div><p>Não. Posso só ajustar o <span class="nw">e-mail</span> e o domínio e deixar o site como está, ou trabalhar junto com quem já cuida dele.</p></div></div>
+      </div>
+      <div class="q">
+        <h3><button type="button" aria-expanded="false" aria-controls="r2" id="p2"><span class="qt">Você vai ter acesso aos meus <span class="nw">e-mails</span>?</span><span class="ic" aria-hidden="true"></span></button></h3>
+        <div class="a" id="r2" role="region" aria-labelledby="p2"><div><p>Não preciso ler nenhuma mensagem. O ajuste é feito nas configurações do endereço da empresa, e não dentro das caixas de <span class="nw">e-mail</span>. Quando eu terminar, você pode retirar qualquer acesso que tiver me passado.</p></div></div>
+      </div>
+      <div class="q">
+        <h3><button type="button" aria-expanded="false" aria-controls="r3" id="p3"><span class="qt">Quanto tempo leva?</span><span class="ic" aria-hidden="true"></span></button></h3>
+        <div class="a" id="r3" role="region" aria-labelledby="p3"><div><p>O resumo inicial sai em até 2 dias úteis, sem custo. O ajuste de <span class="nw">e-mail</span> e domínio fica pronto em até 5 dias úteis, e o site novo, em até 15 dias úteis, contados a partir da aprovação. Projetos maiores têm o prazo combinado no orçamento.</p></div></div>
+      </div>
+      <div class="q">
+        <h3><button type="button" aria-expanded="false" aria-controls="r4" id="p4"><span class="qt">E se algo parar de funcionar depois?</span><span class="ic" aria-hidden="true"></span></button></h3>
+        <div class="a" id="r4" role="region" aria-labelledby="p4"><div><p>Você tem 30 dias de garantia: se algo do que eu fiz parar de funcionar, corrijo sem custo. É só me chamar por <span class="nw">e-mail</span> ou WhatsApp.</p></div></div>
+      </div>
+      <div class="q">
+        <h3><button type="button" aria-expanded="false" aria-controls="r5" id="p5"><span class="qt">Como é o pagamento?</span><span class="ic" aria-hidden="true"></span></button></h3>
+        <div class="a" id="r5" role="region" aria-labelledby="p5"><div><p>Por Pix. No ajuste de <span class="nw">e-mail</span> e domínio, o pagamento é na entrega. No site, metade para começar e metade na entrega. O preço é sempre fechado antes de começar.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" aria-labelledby="t-contato">
+  <div class="wrap">
+    <div class="cut rv contact-wrap">
+      <div class="card contact">
+        <div class="head">
+          <span class="mono" aria-hidden="true">YR</span>
+          <div>
+            <h2 id="t-contato">Fale comigo</h2>
+            <p>Respondo em até um dia útil.</p>
+          </div>
+        </div>
+        <dl class="lines">
+          <div><dt>E-mail</dt><dd><a href="mailto:yan@yanreis.dev.br">yan@yanreis.dev.br</a></dd></div>
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/5541991654004">(41) 99165-4004</a></dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-main" href="mailto:yan@yanreis.dev.br?subject=Quero%20o%20resumo%20do%20meu%20site%20e%20e-mail&amp;body=Ol%C3%A1%2C%20Yan.%0A%0AEmpresa%3A%20%0ASite%3A%20%0AE-mail%20da%20empresa%3A%20%0A"><span>Pedir um resumo do meu site e <span class="nw">e-mail</span></span></a>
+          <a class="btn btn-alt" href="https://wa.me/5541991654004?text=Ol%C3%A1%2C%20Yan.%20Vi%20seu%20site%20e%20quero%20o%20resumo%20do%20meu%20site%20e%20e-mail."><span>Conversar no WhatsApp</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer><div class="w">Yan Gonçalves Reis · Curitiba, PR</div></footer>
+<footer><div class="wrap">Yan Gonçalves Reis · Curitiba, PR</div></footer>
+
+<script>
+(function(){
+  var d=document, root=d.documentElement;
+  var still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.classList.add("js");
+
+  /* seções entram uma vez */
+  var rv=d.querySelectorAll(".rv");
+  if(still||!("IntersectionObserver" in window)){rv.forEach(function(e){e.classList.add("on")})}
+  else{
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px",threshold:.08});
+    rv.forEach(function(e){io.observe(e)});
+  }
+
+  /* perguntas frequentes */
+  d.querySelectorAll(".q button").forEach(function(b){
+    b.addEventListener("click",function(){
+      var open=b.getAttribute("aria-expanded")==="true";
+      b.setAttribute("aria-expanded",String(!open));
+      b.closest(".q").classList.toggle("open",!open);
+    });
+  });
+
+  /* caixa de entrada: chega o verdadeiro, o falso é barrado */
+  var box=d.getElementById("inbox"); if(!box) return;
+  var ok=box.querySelector('[data-step="1"]'), bad=box.querySelector('[data-step="2"]'), again=box.querySelector(".replay");
+  var timers=[];
+  function at(ms,fn){timers.push(setTimeout(fn,ms))}
+  function reset(){
+    timers.forEach(clearTimeout); timers=[];
+    [ok,bad].forEach(function(m){m.classList.add("wait");m.querySelector(".verdict").classList.add("wait")});
+    bad.classList.remove("barred");
+  }
+  function play(){
+    box.classList.add("anim"); reset(); again.hidden=true;
+    void box.offsetWidth;
+    at(500,function(){ok.classList.remove("wait")});
+    at(1300,function(){ok.querySelector(".verdict").classList.remove("wait")});
+    at(2300,function(){bad.classList.remove("wait")});
+    at(3100,function(){bad.querySelector(".verdict").classList.remove("wait")});
+    at(3500,function(){bad.classList.add("barred")});
+    at(4000,function(){again.hidden=false});
+  }
+  if(still){bad.classList.add("barred");return}
+  again.addEventListener("click",play);
+  play();
+})();
+</script>
 </body>
 </html>
